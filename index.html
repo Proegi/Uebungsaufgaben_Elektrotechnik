@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Übungsaufgaben Elektrotechnik</title>
+<!-- Loesung: Uebungsaufgaben_Elektrotechnik_Loesung.md -->
+<style>
+  :root{
+    --paper:#E4E6E1;
+    --card:#FAFAF8;
+    --card-2:#F1F2EE;
+    --ink:#15181B;
+    --ink-2:#5C6169;
+    --ink-3:#8A8F95;
+    --line:#C7CAC3;
+    --line-2:#DEE0DA;
+    --pink:#D6437E;
+    --ok:#1E6B4F;
+    --warn:#9E6A12;
+    --bad:#B32C22;
+    --mono:"SFMono-Regular",Consolas,"Liberation Mono",Menlo,monospace;
+    --sans:"Inter","Segoe UI",system-ui,-apple-system,sans-serif;
+  }
+  *{box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%;}
+  body{
+    margin:0;
+    color:var(--ink);
+    font-family:var(--sans);
+    font-size:16px;
+    line-height:1.55;
+    background:
+      repeating-linear-gradient(45deg,
+        rgba(21,24,27,.028) 0 7px,
+        rgba(21,24,27,0) 7px 15px),
+      var(--paper);
+  }
+  .sheet{max-width:980px;margin:0 auto;padding:34px 22px 40px;}
+
+  header.top{
+    background:var(--card);border:1px solid var(--ink);
+    box-shadow:5px 5px 0 rgba(21,24,27,.14);
+    padding:20px 22px;margin-bottom:34px;
+  }
+  header.top .kicker{
+    font-family:var(--mono);font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;
+    color:var(--ink-3);margin-bottom:8px;
+  }
+  header.top h1{font-size:1.6rem;font-weight:650;letter-spacing:-.015em;margin:0 0 6px;}
+  header.top p{margin:0;color:var(--ink-2);font-size:.9rem;}
+
+  section.task{
+    background:var(--card);border:1px solid var(--ink);
+    box-shadow:5px 5px 0 rgba(21,24,27,.14);
+    padding:22px 22px 26px;margin-bottom:34px;
+  }
+  .task-head{border-bottom:1px solid var(--ink);padding-bottom:10px;margin-bottom:18px;}
+  .task-head .num{
+    display:block;font-family:var(--mono);font-size:.68rem;letter-spacing:.2em;
+    text-transform:uppercase;color:var(--pink);margin-bottom:4px;
+  }
+  .task-head h2{font-size:1.18rem;font-weight:650;margin:0;}
+
+  .info{background:var(--card-2);border:1px solid var(--line);padding:14px 16px;margin-bottom:16px;font-size:.95rem;}
+  .info p{margin:0 0 8px;}
+  .info p:last-child{margin-bottom:0;}
+
+  .demo{background:#fff;border:1px solid var(--line);padding:10px 14px;margin:10px 0 0;overflow-x:auto;}
+  .demo div{display:flex;gap:14px;align-items:baseline;white-space:nowrap;}
+  .demo span.k{
+    font-family:var(--mono);font-size:.64rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--ink-3);width:9.5rem;flex:0 0 auto;
+  }
+  .demo span.v{font-family:var(--mono);font-size:.92rem;}
+
+  .block{
+    border:1px solid var(--line);background:var(--card-2);padding:14px 16px;margin-bottom:16px;overflow-x:auto;
+  }
+  .block:last-child{margin-bottom:0;}
+  .block h4{
+    font-family:var(--mono);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;
+    margin:0 0 10px;font-weight:700;
+  }
+  .block p{margin:0 0 10px;font-size:.93rem;}
+  .block p:last-child{margin-bottom:0;}
+  .block table.grid{margin-bottom:10px;}
+
+  table.steps{border-collapse:collapse;margin-bottom:4px;}
+  table.steps td{padding:4px 0;vertical-align:top;}
+  table.steps td.lab{font-size:.85rem;color:var(--ink-2);padding-right:20px;white-space:nowrap;}
+  table.steps td.frm{font-size:.9rem;}
+  table.steps td.frm em{font-style:normal;color:var(--ink-2);}
+  table.steps td.frm b{display:block;font-family:var(--mono);font-weight:600;font-size:.93rem;margin-top:2px;}
+  .c-pre,.c-hb,.c-m,.c-bs,.c-n,.c-h{font-weight:700;}
+  .c-pre{color:#1F5FAF;}
+  .c-hb{color:#B32C22;}
+  .c-m{color:#7A3FA8;}
+  .c-bs{color:#1E6B4F;}
+  .c-n{color:#C0661A;}
+  .c-h{color:#0E7C86;}
+  table.steps td.lab.c-hb{color:#B32C22;}
+  table.steps td.lab.c-bs{color:#1E6B4F;}
+  table.steps td.lab.c-n{color:#C0661A;}
+  table.steps td.lab.c-h{color:#0E7C86;}
+
+  .blocks{display:flex;border:1px solid var(--line);background:#fff;margin:8px 0 14px;}
+  .blocks div{
+    flex:1;text-align:center;padding:9px 2px;border-right:1px solid var(--line);
+    font-family:var(--mono);font-size:.8rem;color:var(--ink-2);
+  }
+  .blocks div:last-child{border-right:none;}
+  .blocks div span{display:block;color:var(--pink);font-weight:700;font-size:.9rem;}
+
+  .step{margin-bottom:30px;}
+  .step:last-child{margin-bottom:0;}
+  .step h3{
+    font-family:var(--mono);font-size:.76rem;letter-spacing:.14em;text-transform:uppercase;
+    font-weight:700;margin:0 0 8px;color:var(--ink);
+  }
+  .step p{margin:0 0 10px;}
+  .case{font-size:.93rem;color:var(--ink-2);margin:0 0 8px;}
+  ol.anl{margin:0 0 12px;padding-left:22px;font-size:.95rem;}
+  ol.anl li{margin-bottom:3px;}
+  code{font-family:var(--mono);font-size:.9em;background:#E8EAE4;padding:1px 5px;}
+
+  .answer{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-top:12px;}
+  input[type=text],select{
+    font-family:var(--mono);font-size:.92rem;padding:7px 9px;
+    border:1px solid var(--line);background:#fff;color:var(--ink);border-radius:0;
+  }
+  select{padding:6px 6px;}
+  input[type=text]:focus,select:focus{outline:2px solid var(--pink);outline-offset:1px;}
+  input.ok,select.ok{border-color:var(--ok);background:#EEF6F1;}
+  input.bad,select.bad{border-color:var(--bad);background:#FAEFEE;}
+  input.w-short{width:6rem;}
+  input.w-ip{width:10rem;}
+  input.w-pre{width:3.4rem;}
+  input.w-oct{width:3.6rem;text-align:center;}
+
+  button.check{
+    font-family:var(--mono);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;font-weight:700;
+    padding:9px 16px;border:1px solid var(--ink);background:var(--ink);color:#fff;cursor:pointer;border-radius:0;
+  }
+  button.check:hover{background:#000;}
+  button.check:focus-visible{outline:2px solid var(--pink);outline-offset:2px;}
+
+  .msg{font-size:.88rem;min-height:1.3em;margin-top:8px;}
+  .msg.ok{color:var(--ok);font-weight:600;}
+  .msg.hint{color:var(--warn);}
+
+  table.grid{border-collapse:collapse;width:100%;font-size:.9rem;}
+  table.grid th{
+    font-family:var(--mono);font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;
+    background:var(--ink);color:#fff;text-align:left;padding:7px 9px;font-weight:700;
+  }
+  table.grid td{border-bottom:1px solid var(--line-2);padding:6px 9px;vertical-align:middle;}
+  table.grid td.key{font-family:var(--mono);white-space:nowrap;}
+  table.grid td.txt{white-space:nowrap;}
+  table.grid td.center{text-align:center;}
+  table.grid tr.hl td{background:#FBE4EC;}
+  table.grid input[type=text]{width:100%;min-width:8.5rem;}
+  table.grid input.w-pre,table.grid input.w-oct{width:3.6rem;min-width:0;}
+  table.grid input.w-num{min-width:5rem;}
+  .block table.grid td,.info table.grid td{background:#fff;font-family:var(--mono);}
+  .block table.grid tr.hl td{background:#FBE4EC;}
+  .maskcell{display:flex;align-items:center;gap:2px;font-family:var(--mono);font-size:.88rem;white-space:nowrap;}
+  .prefcell{display:flex;align-items:center;gap:3px;font-family:var(--mono);}
+  .scroll{overflow-x:auto;}
+
+  table.own{border-collapse:collapse;width:100%;font-size:.92rem;}
+  table.own td{border-bottom:1px solid var(--line-2);padding:6px 9px;vertical-align:middle;}
+  table.own td.lab{width:15rem;color:var(--ink-2);}
+  table.own tr.given td{background:var(--card-2);}
+
+  .choices{display:flex;flex-direction:column;gap:6px;margin:8px 0 4px;}
+  .choices label{font-size:.94rem;display:flex;gap:9px;align-items:flex-start;cursor:pointer;font-family:var(--mono);}
+  input[type=checkbox]{width:17px;height:17px;accent-color:var(--pink);flex:0 0 auto;margin-top:3px;}
+
+  .freitext{
+    min-height:4.6em;border:1px solid var(--line);background:#fff;padding:8px 10px;
+    font-family:var(--sans);font-size:.95rem;white-space:pre-wrap;margin-top:6px;
+  }
+  .freitext:focus{outline:2px solid var(--pink);outline-offset:1px;}
+  .freitext[data-platzhalter]:empty::before{content:attr(data-platzhalter);color:var(--ink-3);}
+
+  @media (max-width:600px){
+    .sheet{padding:22px 13px 30px;}
+    .demo span.k{width:auto;}
+    .demo div{display:block;}
+    table.own td.lab{width:auto;}
+  }
+  @media print{
+    body{background:#fff;font-size:11pt;}
+    button.check{display:none;}
+    section.task,header.top{box-shadow:none;}
+    .step,.block{break-inside:avoid;}
+    .msg:empty{display:none;}
+  }
+  table.own td.unit{width:4rem;color:var(--ink-2);font-family:var(--mono);font-size:.88rem;}
+  table.own input[type=text]{width:9rem;}
+  .quelle{font-family:var(--mono);font-size:.84rem;word-break:break-all;margin:0 0 10px;}
+  .quelle a{color:var(--pink);}
+  details.hinweis{border:1px solid var(--line);border-left:3px solid var(--warn);background:var(--card-2);margin-top:14px;}
+  details.hinweis summary{cursor:pointer;padding:9px 14px;font-family:var(--mono);font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--warn);font-weight:700;}
+  details.hinweis .inner{padding:0 14px 12px;font-size:.93rem;}
+  @media print{details.hinweis{display:none;}}
+  .msg{white-space:pre-line;}
+  .schild{display:inline-block;background:#2B2F33;color:#E9ECEF;font-family:var(--mono);font-size:.84rem;padding:10px 14px;margin:4px 0 10px;border:1px solid var(--ink);}
+  .schild div{white-space:nowrap;}
+  .dc{display:inline-block;width:.9em;height:.55em;border-top:2px solid currentColor;margin-left:.3em;position:relative;top:.1em;}
+  .dc::after{content:"";position:absolute;left:0;right:0;top:.18em;border-top:2px dashed currentColor;}
+  table.grid select{width:100%;min-width:9rem;}
+  table.grid td.sm{width:7.5rem;}
+  .tools-top{display:flex;gap:12px;flex-wrap:wrap;margin-top:14px;}
+  .tools-top button{font:inherit;font-size:.85rem;padding:6px 14px;border:1.5px solid currentColor;background:transparent;color:inherit;cursor:pointer;}
+  .tools-top button:hover{background:rgba(128,128,128,.16);}
+  @media print{
+    .tools-top{display:none;}
+    .msg{display:none;}
+    section.task{break-inside:auto;}
+    .task-head,.case{break-after:avoid;}
+    table.grid tr,table.own tr,.freitext,.schild{break-inside:avoid;}
+    .freitext{min-height:3em;}
+  }
+</style>
+</head>
+<body>
+<div class="sheet">
+
+<header class="top">
+  <div class="kicker">Lernfeld 2</div>
+  <h1>Übungsaufgaben Elektrotechnik</h1>
+  <p>Deine Eingaben werden nur lokal in diesem Browser gespeichert. Sichere deine Ergebnisse selbst, zum Beispiel über PDF speichern, denn beim Löschen der Browserdaten gehen sie verloren.</p>
+  <div class="tools-top"><button type="button" onclick="window.print()">PDF speichern</button><button type="button" class="vt-wipe-btn">Alle Eingaben löschen</button></div>
+</header>
+
+<section class="task" id="t1">
+  <div class="task-head">
+    <span class="num">Aufgabe 1</span>
+    <h2>Was zeigt das Messgerät?</h2>
+  </div>
+  <div class="step">
+    
+    <p class="case">Ein Kunde steckt seinen Gaming-PC über ein Energiekostenmessgerät in die Steckdose. Beim Spielen zeigt es 320 W an. Laut Datenblatt hat das Netzteil bei dieser Last einen Wirkungsgrad von 88 %.</p>
+  </div>
+  <div class="step">
+
+    <p>Berechne, wie viel Leistung bei den Komponenten des PCs ankommt.</p><div class="scroll"><table class="own"><tr><td class="lab">Leistung bei den Komponenten</td><td><input type="text" id="a1-komp" inputmode="decimal" autocomplete="off" aria-label="Leistung bei den Komponenten"></td><td class="unit">W</td></tr></table></div><div class="answer"><button class="check" data-check="a1a">Prüfen</button></div>
+    <div class="msg" id="msg-a1a"></div>
+  </div>
+  <div class="step">
+
+    <p>Berechne den Leistungsverlust im Netzteil.</p><div class="scroll"><table class="own"><tr><td class="lab">Leistungsverlust im Netzteil</td><td><input type="text" id="a1-verlust" inputmode="decimal" autocomplete="off" aria-label="Leistungsverlust im Netzteil"></td><td class="unit">W</td></tr></table></div><div class="answer"><button class="check" data-check="a1b">Prüfen</button></div>
+    <div class="msg" id="msg-a1b"></div>
+  </div>
+
+</section>
+
+<section class="task" id="t2">
+  <div class="task-head">
+    <span class="num">Aufgabe 2</span>
+    <h2>Von der Steckdose bis zum Prozessor</h2>
+  </div>
+  <div class="step">
+    
+    <p class="case">Der Prozessor eines Servers benötigt 150 W. Auf dem Weg von der Steckdose zum Prozessor gibt es diese Stationen:</p><div class="scroll"><table class="grid"><tr><th>Station</th><th>Wirkungsgrad</th></tr><tr><td>USV</td><td>94 %</td></tr><tr><td>Netzteil</td><td>92 %</td></tr><tr><td>Spannungswandler auf dem Mainboard</td><td>88 %</td></tr></table></div>
+  </div>
+  <div class="step">
+
+    <p>Berechne den Wirkungsgrad der gesamten Kette.</p><div class="scroll"><table class="own"><tr><td class="lab">Wirkungsgrad der Kette</td><td><input type="text" id="a2-eta" inputmode="decimal" autocomplete="off" aria-label="Wirkungsgrad der Kette"></td><td class="unit">%</td></tr></table></div><div class="answer"><button class="check" data-check="a2a">Prüfen</button></div>
+    <div class="msg" id="msg-a2a"></div>
+  </div>
+  <div class="step">
+
+    <p>Berechne, wie viel Leistung der Server für den Prozessor aus der Steckdose aufnimmt.</p><div class="scroll"><table class="own"><tr><td class="lab">Aufnahme aus der Steckdose</td><td><input type="text" id="a2-auf" inputmode="decimal" autocomplete="off" aria-label="Aufnahme aus der Steckdose"></td><td class="unit">W</td></tr></table></div><details class="hinweis"><summary>Hinweis zum Rechenweg</summary><div class="inner">Gibt es mehrere Stationen nacheinander, ergibt sich der Wirkungsgrad der gesamten Kette, indem man alle einzelnen Wirkungsgrade miteinander multipliziert.</div></details><div class="answer"><button class="check" data-check="a2b">Prüfen</button></div>
+    <div class="msg" id="msg-a2b"></div>
+  </div>
+  <div class="step">
+
+    <p>Die Firma kann für denselben Preis entweder die USV von 94 % auf 97 % oder den Spannungswandler von 88 % auf 91 % verbessern. Ein Kollege meint, die USV bringe mehr, weil durch sie noch die gesamte Leistung fließt. Entscheide rechnerisch.</p><div class="scroll"><table class="own"><tr><td class="lab">Aufnahme mit besserer USV</td><td><input type="text" id="a2-usv" inputmode="decimal" autocomplete="off" aria-label="Aufnahme mit besserer USV"></td><td class="unit">W</td></tr><tr><td class="lab">Aufnahme mit besserem Spannungswandler</td><td><input type="text" id="a2-sw" inputmode="decimal" autocomplete="off" aria-label="Aufnahme mit besserem Spannungswandler"></td><td class="unit">W</td></tr><tr><td class="lab">Mehr spart</td><td><select id="a2-wahl" aria-label="Mehr spart"><option value=""></option><option value="die bessere USV">die bessere USV</option><option value="der bessere Spannungswandler">der bessere Spannungswandler</option></select></td><td class="unit"></td></tr></table></div><div class="answer"><button class="check" data-check="a2c">Prüfen</button></div>
+    <div class="msg" id="msg-a2c"></div>
+  </div>
+  <div class="step">
+
+    <p>Der Serverraum wird im Sommer zu warm. Erkläre den Zusammenhang mit deinen Ergebnissen.</p><div class="freitext" id="a2-raum" contenteditable="true" data-platzhalter="Deine Antwort"></div>
+  </div>
+
+</section>
+
+<section class="task" id="t3">
+  <div class="task-head">
+    <span class="num">Aufgabe 3</span>
+    <h2>Gold oder Bronze?</h2>
+  </div>
+  <div class="step">
+    
+    <p class="case">Ein Büro-PC läuft an 220 Tagen im Jahr. An jedem dieser Tage ist er 6 Stunden im Leerlauf, dabei brauchen seine Komponenten 45 W. Weitere 2 Stunden arbeitet er unter Last, dabei brauchen seine Komponenten 250 W. Zur Auswahl stehen zwei Netzteile:</p><div class="scroll"><table class="grid"><tr><th>Netzteil</th><th>Nennleistung</th><th>Zertifikat</th><th>Wirkungsgrad bei 45 W</th><th>Wirkungsgrad bei 250 W</th></tr><tr><td>A</td><td>650 W</td><td>80 PLUS Gold</td><td>70 %</td><td>91 %</td></tr><tr><td>B</td><td>300 W</td><td>80 PLUS Bronze</td><td>82 %</td><td>85 %</td></tr></table></div>
+  </div>
+  <div class="step">
+    
+    <p>Berechne für beide Netzteile, wie viele Kilowattstunden der PC pro Jahr aus der Steckdose aufnimmt, und gib an, welches Netzteil sparsamer ist.</p><div class="scroll"><table class="own"><tr><td class="lab">Mit Netzteil A</td><td><input type="text" id="a3-a" inputmode="decimal" autocomplete="off" aria-label="Mit Netzteil A"></td><td class="unit">kWh</td></tr><tr><td class="lab">Mit Netzteil B</td><td><input type="text" id="a3-b" inputmode="decimal" autocomplete="off" aria-label="Mit Netzteil B"></td><td class="unit">kWh</td></tr><tr><td class="lab">Sparsamer ist</td><td><select id="a3-wahl" aria-label="Sparsamer ist"><option value=""></option><option value="Netzteil B">Netzteil B</option><option value="Netzteil A">Netzteil A</option></select></td><td class="unit"></td></tr></table></div><div class="answer"><button class="check" data-check="a3">Prüfen</button></div>
+    <div class="msg" id="msg-a3"></div>
+  </div>
+
+</section>
+
+<section class="task" id="t-nt">
+  <div class="task-head">
+    <span class="num">Aufgabe 4</span>
+    <h2>Das Netzteil für den Kunden-PC</h2>
+  </div>
+  <div class="step">
+    <p class="case">Ein Kunde lässt sich bei dir einen PC zusammenstellen. Die Komponenten nehmen unter Volllast diese Leistungen auf:</p><div class="scroll"><table class="grid"><tr><th>Komponente</th><th>Leistungsaufnahme</th></tr><tr><td>Prozessor</td><td>105 W</td></tr><tr><td>Grafikkarte</td><td>285 W</td></tr><tr><td>Mainboard</td><td>45 W</td></tr><tr><td>Arbeitsspeicher, 2 Riegel</td><td>je 5 W</td></tr><tr><td>NVMe-SSD</td><td>7 W</td></tr><tr><td>Festplatte</td><td>9 W</td></tr><tr><td>Gehäuselüfter, 4 Stück</td><td>je 3 W</td></tr></table></div>
+    <p class="case" style="margin-top:12px">Dein Betrieb plant beim Netzteil immer 30 % Reserve auf die Gesamtleistung ein.</p>
+  </div>
+  <div class="step">
+    <p>Berechne die Gesamtleistung der Komponenten und die Leistung, die das Netzteil mindestens haben muss.</p><div class="scroll"><table class="own"><tr><td class="lab">Gesamtleistung der Komponenten</td><td><input type="text" id="nt-sum" inputmode="decimal" autocomplete="off" aria-label="Gesamtleistung der Komponenten"></td><td class="unit">W</td></tr><tr><td class="lab">Mindestleistung des Netzteils</td><td><input type="text" id="nt-min" inputmode="decimal" autocomplete="off" aria-label="Mindestleistung des Netzteils"></td><td class="unit">W</td></tr></table></div><details class="hinweis"><summary>Hinweis zum Rechenweg</summary><div class="inner"><span style="font-family:var(--mono)">P<sub>min</sub> = P · 1,3</span></div></details><div class="answer"><button class="check" data-check="nt1">Prüfen</button></div>
+    <div class="msg" id="msg-nt1"></div>
+  </div>
+  <div class="step">
+    <p class="case">Der Kunde wünscht ein Netzteil mit mindestens 80 PLUS Gold und möchte so wenig wie möglich ausgeben. Für die Zertifikate gelten diese Mindestwirkungsgrade:</p><div class="scroll"><table class="grid"><tr><th>Zertifikat</th><th>20 % Auslastung</th><th>50 % Auslastung</th><th>100 % Auslastung</th></tr><tr><td>80 PLUS Standard</td><td>82 %</td><td>85 %</td><td>82 %</td></tr><tr><td>80 PLUS Bronze</td><td>85 %</td><td>88 %</td><td>85 %</td></tr><tr><td>80 PLUS Silver</td><td>87 %</td><td>90 %</td><td>87 %</td></tr><tr><td>80 PLUS Gold</td><td>90 %</td><td>92 %</td><td>89 %</td></tr><tr><td>80 PLUS Platinum</td><td>92 %</td><td>94 %</td><td>90 %</td></tr></table></div>
+    <p class="case" style="margin-top:12px">Dein Lieferant hat diese Netzteile vorrätig. Angegeben sind die gemessenen Wirkungsgrade:</p>
+    <div class="scroll"><table class="grid"><tr><th>Netzteil</th><th>Nennleistung</th><th>20 %</th><th>50 %</th><th>100 %</th><th>Preis</th><th>Zertifikat</th></tr>
+      <tr><td>A</td><td>550 W</td><td>91 %</td><td>93 %</td><td>90 %</td><td>79 €</td><td class="sm"><select id="nt-z1" aria-label="Zertifikat Netzteil A"><option value=""></option><option>kein Zertifikat</option><option>Standard</option><option>Bronze</option><option>Silver</option><option>Gold</option><option>Platinum</option></select></td></tr>
+      <tr><td>B</td><td>650 W</td><td>92 %</td><td>94 %</td><td>88 %</td><td>89 €</td><td class="sm"><select id="nt-z2" aria-label="Zertifikat Netzteil B"><option value=""></option><option>kein Zertifikat</option><option>Standard</option><option>Bronze</option><option>Silver</option><option>Gold</option><option>Platinum</option></select></td></tr>
+      <tr><td>C</td><td>750 W</td><td>90 %</td><td>92 %</td><td>89 %</td><td>109 €</td><td class="sm"><select id="nt-z3" aria-label="Zertifikat Netzteil C"><option value=""></option><option>kein Zertifikat</option><option>Standard</option><option>Bronze</option><option>Silver</option><option>Gold</option><option>Platinum</option></select></td></tr>
+      <tr><td>D</td><td>850 W</td><td>93 %</td><td>95 %</td><td>91 %</td><td>149 €</td><td class="sm"><select id="nt-z4" aria-label="Zertifikat Netzteil D"><option value=""></option><option>kein Zertifikat</option><option>Standard</option><option>Bronze</option><option>Silver</option><option>Gold</option><option>Platinum</option></select></td></tr>
+      <tr><td>E</td><td>700 W</td><td>86 %</td><td>89 %</td><td>86 %</td><td>75 €</td><td class="sm"><select id="nt-z5" aria-label="Zertifikat Netzteil E"><option value=""></option><option>kein Zertifikat</option><option>Standard</option><option>Bronze</option><option>Silver</option><option>Gold</option><option>Platinum</option></select></td></tr>
+    </table></div>
+    <p style="margin-top:12px">Bestimme für jedes Netzteil das Zertifikat und wähle das Netzteil für den Kunden aus.</p>
+    <div class="scroll"><table class="own"><tr><td class="lab">Gewähltes Netzteil</td><td><select id="nt-wahl" aria-label="Gewähltes Netzteil"><option value=""></option><option>Netzteil D</option><option>Netzteil A</option><option>Netzteil E</option><option>Netzteil C</option><option>Netzteil B</option></select></td><td class="unit"></td></tr></table></div>
+    <div class="answer"><button class="check" data-check="nt2">Prüfen</button></div>
+    <div class="msg" id="msg-nt2"></div>
+  </div>
+</section>
+
+<section class="task" id="t-nb">
+  <div class="task-head">
+    <span class="num">Aufgabe 5</span>
+    <h2>Ersatz für das Notebook-Netzteil</h2>
+  </div>
+  <div class="step">
+    <p class="case">Eine Kundin hat das Netzteil ihres Notebooks verloren. Das Notebook lädt nur über seine Hohlbuchse. Auf der Unterseite klebt noch ein Aufkleber mit den Daten des alten Netzteils:</p>
+    <div class="schild"><div>INPUT: 100–240 V~ 50/60 Hz 1,8 A</div><div>OUTPUT: 19,5 V<span class="dc"></span> 6,92 A</div><div>Stecker: Hohlstecker 4,5 × 3,0 mm, mit Stift</div></div>
+  </div>
+  <div class="step">
+    <p>Berechne die Leistung des alten Netzteils.</p><div class="scroll"><table class="own"><tr><td class="lab">Leistung des alten Netzteils</td><td><input type="text" id="nb-p" inputmode="decimal" autocomplete="off" aria-label="Leistung des alten Netzteils"></td><td class="unit">W</td></tr></table></div><details class="hinweis"><summary>Hinweis zum Rechenweg</summary><div class="inner"><span style="font-family:var(--mono)">P = U · I</span></div></details><div class="answer"><button class="check" data-check="nb1">Prüfen</button></div>
+    <div class="msg" id="msg-nb1"></div>
+  </div>
+  <div class="step">
+    <p class="case">Im Lager liegen diese Netzteile. Angegeben sind die Werte der Ausgangsseite.</p>
+    <p>Entscheide für jedes Netzteil, ob es passt. Passt es nicht, wähle den Grund.</p>
+    <div class="scroll"><table class="grid"><tr><th>Netzteil</th><th>Spannung</th><th>Stromstärke</th><th>Anschluss</th><th>Entscheidung</th></tr>
+      <tr><td>A</td><td>19,5 V</td><td>7,7 A</td><td>Hohlstecker 7,4 × 5,0 mm, mit Stift</td><td><select id="nb-a" aria-label="Netzteil A"><option value=""></option><option>passt</option><option>Spannung passt nicht</option><option>Leistung zu gering</option><option>Stromstärke zu hoch</option><option>Stecker passt nicht</option></select></td></tr>
+      <tr><td>B</td><td>19,5 V</td><td>6,15 A</td><td>Hohlstecker 4,5 × 3,0 mm, mit Stift</td><td><select id="nb-b" aria-label="Netzteil B"><option value=""></option><option>passt</option><option>Spannung passt nicht</option><option>Leistung zu gering</option><option>Stromstärke zu hoch</option><option>Stecker passt nicht</option></select></td></tr>
+      <tr><td>C</td><td>19,5 V</td><td>9,23 A</td><td>Hohlstecker 4,5 × 3,0 mm, mit Stift</td><td><select id="nb-c" aria-label="Netzteil C"><option value=""></option><option>passt</option><option>Spannung passt nicht</option><option>Leistung zu gering</option><option>Stromstärke zu hoch</option><option>Stecker passt nicht</option></select></td></tr>
+      <tr><td>D</td><td>20 V</td><td>7,5 A</td><td>Hohlstecker 4,5 × 3,0 mm, mit Stift</td><td><select id="nb-d" aria-label="Netzteil D"><option value=""></option><option>passt</option><option>Spannung passt nicht</option><option>Leistung zu gering</option><option>Stromstärke zu hoch</option><option>Stecker passt nicht</option></select></td></tr>
+      <tr><td>E</td><td>20 V</td><td>5 A</td><td>USB-C mit Power Delivery</td><td><select id="nb-e" aria-label="Netzteil E"><option value=""></option><option>passt</option><option>Spannung passt nicht</option><option>Leistung zu gering</option><option>Stromstärke zu hoch</option><option>Stecker passt nicht</option></select></td></tr>
+    </table></div>
+    <div class="answer"><button class="check" data-check="nb2">Prüfen</button></div>
+    <div class="msg" id="msg-nb2"></div>
+  </div>
+</section>
+
+<section class="task" id="t-usb">
+  <div class="task-head">
+    <span class="num">Aufgabe 6</span>
+    <h2>USB-Geräte an der Kasse</h2>
+  </div>
+  <div class="step">
+    <p class="case">In einem Hofladen wird eine neue Kasse eingerichtet. Alle Geräte sollen ihren Strom über die USB-Anschlüsse des Kassen-PCs bekommen. Die Spannung beträgt an jedem Anschluss 5 V.</p>
+    <div class="scroll"><table class="grid"><tr><th>Anschluss</th><th>Standard</th><th>maximaler Strom</th></tr><tr><td>Port 1</td><td>USB 2.0</td><td>500 mA</td></tr><tr><td>Port 2</td><td>USB 2.0</td><td>500 mA</td></tr><tr><td>Port 3</td><td>USB 3.2 Gen 1</td><td>900 mA</td></tr><tr><td>Port 4</td><td>USB-C</td><td>1500 mA</td></tr></table></div>
+    <div class="scroll" style="margin-top:12px"><table class="grid"><tr><th>Gerät</th><th>Stromaufnahme</th></tr><tr><td>Kundendisplay</td><td>1350 mA</td></tr><tr><td>Kartenterminal</td><td>480 mA</td></tr><tr><td>Barcode-Scanner</td><td>420 mA</td></tr><tr><td>Kassenschublade</td><td>300 mA</td></tr><tr><td>Tastatur</td><td>100 mA</td></tr><tr><td>Unterschriften-Pad</td><td>280 mA</td></tr></table></div>
+    <p class="case" style="margin-top:12px">Es steht ein passiver USB-Hub zur Verfügung. Er braucht selbst 100 mA.</p>
+  </div>
+  <div class="step">
+    <p>Berechne die Stromaufnahme und die Leistung aller Geräte zusammen.</p><div class="scroll"><table class="own"><tr><td class="lab">Stromaufnahme aller Geräte</td><td><input type="text" id="usb-ma" inputmode="decimal" autocomplete="off" aria-label="Stromaufnahme aller Geräte"></td><td class="unit">mA</td></tr><tr><td class="lab">Leistung aller Geräte</td><td><input type="text" id="usb-w" inputmode="decimal" autocomplete="off" aria-label="Leistung aller Geräte"></td><td class="unit">W</td></tr></table></div><div class="answer"><button class="check" data-check="usb1">Prüfen</button></div>
+    <div class="msg" id="msg-usb1"></div>
+  </div>
+  <div class="step">
+    <p>Verteile die Geräte so auf die Anschlüsse, dass kein Anschluss überlastet ist.</p>
+    <div class="scroll"><table class="own">
+      <tr><td class="lab">Kundendisplay</td><td><select id="usb-display" aria-label="Kundendisplay"><option value=""></option><option value="p1">Port 1</option><option value="p2">Port 2</option><option value="p3">Port 3</option><option value="p4">Port 4</option></select></td><td class="unit"></td></tr>
+      <tr><td class="lab">Kartenterminal</td><td><select id="usb-terminal" aria-label="Kartenterminal"><option value=""></option><option value="p1">Port 1</option><option value="p2">Port 2</option><option value="p3">Port 3</option><option value="p4">Port 4</option></select></td><td class="unit"></td></tr>
+      <tr><td class="lab">Barcode-Scanner</td><td><select id="usb-scanner" aria-label="Barcode-Scanner"><option value=""></option><option value="p1">Port 1</option><option value="p2">Port 2</option><option value="p3">Port 3</option><option value="p4">Port 4</option></select></td><td class="unit"></td></tr>
+      <tr><td class="lab">Kassenschublade</td><td><select id="usb-lade" aria-label="Kassenschublade"><option value=""></option><option value="p1">Port 1</option><option value="p2">Port 2</option><option value="p3">Port 3</option><option value="p4">Port 4</option></select></td><td class="unit"></td></tr>
+      <tr><td class="lab">Tastatur</td><td><select id="usb-tast" aria-label="Tastatur"><option value=""></option><option value="p1">Port 1</option><option value="p2">Port 2</option><option value="p3">Port 3</option><option value="p4">Port 4</option></select></td><td class="unit"></td></tr>
+      <tr><td class="lab">Unterschriften-Pad</td><td><select id="usb-pad" aria-label="Unterschriften-Pad"><option value=""></option><option value="p1">Port 1</option><option value="p2">Port 2</option><option value="p3">Port 3</option><option value="p4">Port 4</option></select></td><td class="unit"></td></tr>
+    </table></div>
+    <div class="answer"><button class="check" data-check="usb2">Prüfen</button></div>
+    <div class="msg" id="msg-usb2"></div>
+  </div>
+</section>
+
+<section class="task" id="t4">
+  <div class="task-head">
+    <span class="num">Aufgabe 7</span>
+    <h2>Der Besprechungsraum</h2>
+  </div>
+  <div class="step">
+    
+    <p class="case">Im Besprechungsraum hängen die Steckdosen an einem Stromkreis, der nur noch mit 2500 W belastet werden kann, weil andere Geräte bereits etwas verbrauchen. Vor einer Besprechung sollen gleichzeitig laufen:</p><div class="scroll"><table class="grid"><tr><th>Gerät</th><th>Leistungsaufnahme</th></tr><tr><td>Projektor</td><td>350 W</td></tr><tr><td>Laptop 1</td><td>65 W</td></tr><tr><td>Laptop 2</td><td>65 W</td></tr><tr><td>Kaffeemaschine</td><td>900 W</td></tr><tr><td>Wasserkocher</td><td>1200 W</td></tr></table></div>
+  </div>
+  <div class="step">
+
+    <p>Berechne die Leistung aller Geräte zusammen.</p><div class="scroll"><table class="own"><tr><td class="lab">Leistung aller Geräte</td><td><input type="text" id="a4-sum" inputmode="decimal" autocomplete="off" aria-label="Leistung aller Geräte"></td><td class="unit">W</td></tr></table></div><div class="answer"><button class="check" data-check="a4a">Prüfen</button></div>
+    <div class="msg" id="msg-a4a"></div>
+  </div>
+  <div class="step">
+
+    <p>Entscheide, ob alle Geräte gleichzeitig laufen können.</p><div class="scroll"><table class="own"><tr><td class="lab">Alle Geräte</td><td><select id="a4-geht" aria-label="Alle Geräte"><option value=""></option><option value="können gleichzeitig laufen">können gleichzeitig laufen</option><option value="können nicht gleichzeitig laufen">können nicht gleichzeitig laufen</option></select></td><td class="unit"></td></tr></table></div><div class="answer"><button class="check" data-check="a4b">Prüfen</button></div>
+    <div class="msg" id="msg-a4b"></div>
+  </div>
+  <div class="step">
+
+    <p>Die Steckdosen der Teeküche nebenan hängen an einem anderen Stromkreis, der nur noch mit 1000 W belastet werden kann. Projektor und Laptops werden im Besprechungsraum gebraucht. Entscheide, welches Gerät in die Teeküche umziehen sollte, damit alles gleichzeitig laufen kann.</p><div class="scroll"><table class="own"><tr><td class="lab">Umziehen sollte</td><td><select id="a4-geraet" aria-label="Umziehen sollte"><option value=""></option><option value="Wasserkocher">Wasserkocher</option><option value="Laptop 2">Laptop 2</option><option value="Kaffeemaschine">Kaffeemaschine</option><option value="Projektor">Projektor</option><option value="Laptop 1">Laptop 1</option></select></td><td class="unit"></td></tr></table></div><div class="answer"><button class="check" data-check="a4c">Prüfen</button></div>
+    <div class="msg" id="msg-a4c"></div>
+  </div>
+
+</section>
+
+<section class="task" id="t-sb">
+  <div class="task-head">
+    <span class="num">Aufgabe 8</span>
+    <h2>Strom für nichts</h2>
+  </div>
+  <div class="step">
+    <p class="case">Im Schulungsraum eines Betriebs stehen 12 Arbeitsplätze mit je einem PC und einem Monitor. An 200 Tagen im Jahr wird dort 7 Stunden gearbeitet. In der übrigen Zeit, also auch nachts, am Wochenende und in den Ferien, bleiben alle Geräte im Standby. Eine kWh kostet 0,32 €.</p><div class="scroll"><table class="grid"><tr><th>Gerät</th><th>im Betrieb</th><th>im Standby</th></tr><tr><td>PC</td><td>120 W</td><td>4 W</td></tr><tr><td>Monitor</td><td>25 W</td><td>0,5 W</td></tr></table></div>
+  </div>
+  <div class="step">
+    <p>Berechne, was der Raum pro Jahr im Betrieb und im Standby kostet.</p><div class="scroll"><table class="own"><tr><td class="lab">Kosten im Betrieb pro Jahr</td><td><input type="text" id="sb-betrieb" inputmode="decimal" autocomplete="off" aria-label="Kosten im Betrieb pro Jahr"></td><td class="unit">€</td></tr><tr><td class="lab">Kosten im Standby pro Jahr</td><td><input type="text" id="sb-standby" inputmode="decimal" autocomplete="off" aria-label="Kosten im Standby pro Jahr"></td><td class="unit">€</td></tr></table></div><div class="answer"><button class="check" data-check="sb1">Prüfen</button></div>
+    <div class="msg" id="msg-sb1"></div>
+  </div>
+  <div class="step">
+    <p>Schaltbare Steckdosenleisten kosten 15 € pro Stück. Jeder Arbeitsplatz bekommt eine, damit wird der Standby komplett abgeschaltet. Berechne, nach wie vielen Jahren sich die Leisten bezahlt gemacht haben.</p><div class="scroll"><table class="own"><tr><td class="lab">Bezahlt gemacht nach</td><td><input type="text" id="sb-jahre" inputmode="decimal" autocomplete="off" aria-label="Bezahlt gemacht nach"></td><td class="unit">Jahren</td></tr></table></div><div class="answer"><button class="check" data-check="sb2">Prüfen</button></div>
+    <div class="msg" id="msg-sb2"></div>
+  </div>
+</section>
+
+<section class="task" id="t5">
+  <div class="task-head">
+    <span class="num">Aufgabe 9</span>
+    <h2>Die USV für den Serverschrank</h2>
+  </div>
+  <div class="step">
+    
+    <p class="case">Ein Handwerksbetrieb möchte seinen Serverschrank bei Stromausfall absichern. Im Schrank laufen:</p><div class="scroll"><table class="grid"><tr><th>Gerät</th><th>Leistungsaufnahme</th></tr><tr><td>Server</td><td>380 W</td></tr><tr><td>Switch</td><td>45 W</td></tr><tr><td>Firewall</td><td>25 W</td></tr></table></div><p class="case" style="margin-top:12px">Angeboten wird eine USV mit diesen Angaben:</p><div class="scroll"><table class="grid"><tr><th>Angabe</th><th>Wert</th></tr><tr><td>maximale Ausgangsleistung</td><td>600 W</td></tr><tr><td>Akkus</td><td>2 Stück, je 12 V und 9 Ah</td></tr><tr><td>Wirkungsgrad im Akkubetrieb</td><td>85 %</td></tr></table></div>
+  </div>
+  <div class="step">
+
+    <p>Berechne, wie viele Wattstunden in den Akkus gespeichert sind.</p><div class="scroll"><table class="own"><tr><td class="lab">Gespeichert in den Akkus</td><td><input type="text" id="a5-akku" inputmode="decimal" autocomplete="off" aria-label="Gespeichert in den Akkus"></td><td class="unit">Wh</td></tr></table></div><details class="hinweis"><summary>Hinweis zum Rechenweg</summary><div class="inner"><span style="font-family:var(--mono)">W = U · I · t</span></div></details><div class="answer"><button class="check" data-check="a5a">Prüfen</button></div>
+    <div class="msg" id="msg-a5a"></div>
+  </div>
+  <div class="step">
+
+    <p>Berechne, wie viele Wattstunden davon bei den Geräten ankommen.</p><div class="scroll"><table class="own"><tr><td class="lab">Bei den Geräten</td><td><input type="text" id="a5-nutz" inputmode="decimal" autocomplete="off" aria-label="Bei den Geräten"></td><td class="unit">Wh</td></tr></table></div><details class="hinweis"><summary>Hinweis zum Rechenweg</summary><div class="inner"><span style="font-family:var(--mono)">W<sub>ab</sub> = W<sub>zu</sub> · η (Wirkungsgrad)</span></div></details><div class="answer"><button class="check" data-check="a5b">Prüfen</button></div>
+    <div class="msg" id="msg-a5b"></div>
+  </div>
+  <div class="step">
+
+    <p>Berechne, wie lange die USV die Geräte bei einem Stromausfall versorgen kann.</p><div class="scroll"><table class="own"><tr><td class="lab">Überbrückungszeit</td><td><input type="text" id="a5-min" inputmode="decimal" autocomplete="off" aria-label="Überbrückungszeit"></td><td class="unit">min</td></tr></table></div><details class="hinweis"><summary>Hinweis zum Rechenweg</summary><div class="inner"><span style="font-family:var(--mono)">t = W : P</span></div></details><div class="answer"><button class="check" data-check="a5c">Prüfen</button></div>
+    <div class="msg" id="msg-a5c"></div>
+  </div>
+  <div class="step">
+
+    <p>Der Chef möchte, dass der Betrieb bei Stromausfall 30 Minuten weiterläuft. Berechne, wie viele Wattstunden die USV dafür an die Geräte liefern muss.</p><div class="scroll"><table class="own"><tr><td class="lab">Für 30 Minuten</td><td><input type="text" id="a5-bedarf" inputmode="decimal" autocomplete="off" aria-label="Für 30 Minuten"></td><td class="unit">Wh</td></tr></table></div><details class="hinweis"><summary>Hinweis zum Rechenweg</summary><div class="inner"><span style="font-family:var(--mono)">W = P · t</span></div></details><div class="answer"><button class="check" data-check="a5d">Prüfen</button></div>
+    <div class="msg" id="msg-a5d"></div>
+  </div>
+  <div class="step">
+
+    <p>Berechne, wie viele Wattstunden die Akkus dafür mindestens speichern müssen.</p><div class="scroll"><table class="own"><tr><td class="lab">Mindestens in den Akkus</td><td><input type="text" id="a5-minakku" inputmode="decimal" autocomplete="off" aria-label="Mindestens in den Akkus"></td><td class="unit">Wh</td></tr></table></div><details class="hinweis"><summary>Hinweis zum Rechenweg</summary><div class="inner"><span style="font-family:var(--mono)">W<sub>zu</sub> = W<sub>ab</sub> : η (Wirkungsgrad)</span></div></details><div class="answer"><button class="check" data-check="a5e">Prüfen</button></div>
+    <div class="msg" id="msg-a5e"></div>
+  </div>
+  <div class="step">
+    <p class="case">Die angebotene USV schafft das nicht. Der Lieferant schickt weitere Angebote:</p>
+    <div class="scroll"><table class="grid"><tr><th>USV</th><th>maximale Ausgangsleistung</th><th>Akkus</th><th>Wirkungsgrad im Akkubetrieb</th><th>Preis</th></tr><tr><td>A</td><td>800 W</td><td>2 Stück, je 12 V und 12 Ah</td><td>75 %</td><td>199 €</td></tr><tr><td>B</td><td>1000 W</td><td>4 Stück, je 12 V und 9 Ah</td><td>90 %</td><td>329 €</td></tr><tr><td>C</td><td>400 W</td><td>4 Stück, je 12 V und 7 Ah</td><td>90 %</td><td>179 €</td></tr><tr><td>D</td><td>500 W</td><td>2 Stück, je 12 V und 12 Ah</td><td>90 %</td><td>219 €</td></tr><tr><td>E</td><td>750 W</td><td>3 Stück, je 12 V und 9 Ah</td><td>85 %</td><td>239 €</td></tr></table></div>
+    <p style="margin-top:12px">Wähle die günstigste USV, mit der der Betrieb 30 Minuten weiterläuft.</p><div class="scroll"><table class="own"><tr><td class="lab">Gewählte USV</td><td><select id="a5-angebot" aria-label="Gewählte USV"><option value=""></option><option>USV C</option><option>USV E</option><option>USV A</option><option>USV D</option><option>USV B</option></select></td><td class="unit"></td></tr></table></div><div class="answer"><button class="check" data-check="a5f">Prüfen</button></div>
+    <div class="msg" id="msg-a5f"></div>
+  </div>
+
+</section>
+
+<section class="task" id="t-gf">
+  <div class="task-head">
+    <span class="num">Aufgabe 10</span>
+    <h2>Grenzen ausreizen</h2>
+  </div>
+  <div class="step">
+    <h3>Teil 1: Der Akkupack für den Messestand</h3>
+    <p class="case">Dein Betrieb stellt auf einer Ausbildungsmesse aus. Am Stand gibt es keinen Stromanschluss, deshalb baut ihr einen Akkupack, der PCs, Monitore und Beleuchtung versorgt. Er besteht aus Lithium-Ionen-Zellen. Jede Zelle hat eine Nennspannung von 3,6 V<span class="dc"></span>. Die Zellen werden in Reihe geschaltet. Am fertigen Akkupack wollt ihr selbst arbeiten dürfen.</p>
+    <p>Berechne, wie viele Zellen höchstens in Reihe geschaltet werden dürfen, und die Spannung des Akkupacks.</p><div class="scroll"><table class="own"><tr><td class="lab">Zellen höchstens</td><td><input type="text" id="ak-n" inputmode="decimal" autocomplete="off" aria-label="Zellen höchstens"></td><td class="unit"></td></tr><tr><td class="lab">Spannung des Akkupacks</td><td><input type="text" id="ak-u" inputmode="decimal" autocomplete="off" aria-label="Spannung des Akkupacks"></td><td class="unit">V</td></tr></table></div><details class="hinweis"><summary>Hinweis zum Rechenweg</summary><div class="inner">Anzahl Zellen = Grenze für Gleichspannung : Spannung einer Zelle. Es zählen nur ganze Zellen, also abrunden.</div></details><div class="answer"><button class="check" data-check="ak1">Prüfen</button></div>
+    <div class="msg" id="msg-ak1"></div>
+  </div>
+  <div class="step">
+    <p>Beim Laden steigt die Spannung jeder Zelle auf 4,2 V. Berechne die Spannung deines Akkupacks beim Laden und entscheide, ob ihr dann noch daran arbeiten dürft.</p><div class="scroll"><table class="own"><tr><td class="lab">Spannung beim Laden</td><td><input type="text" id="ak-ul" inputmode="decimal" autocomplete="off" aria-label="Spannung beim Laden"></td><td class="unit">V</td></tr><tr><td class="lab">Arbeiten am Akkupack beim Laden</td><td><select id="ak-d" aria-label="Arbeiten am Akkupack beim Laden"><option value=""></option><option>erlaubt</option><option>nicht erlaubt</option></select></td><td class="unit"></td></tr></table></div><div class="answer"><button class="check" data-check="ak2">Prüfen</button></div>
+    <div class="msg" id="msg-ak2"></div>
+  </div>
+  <div class="step">
+    <p>Berechne, wie viele Zellen der Akkupack höchstens haben darf, damit ihr auch beim Laden noch daran arbeiten dürft. Der Messestand braucht 500 W. Berechne die Stromstärke, die dieser Akkupack bei Nennspannung liefern muss.</p><div class="scroll"><table class="own"><tr><td class="lab">Zellen höchstens</td><td><input type="text" id="ak-n2" inputmode="decimal" autocomplete="off" aria-label="Zellen höchstens"></td><td class="unit"></td></tr><tr><td class="lab">Stromstärke bei 500 W</td><td><input type="text" id="ak-i" inputmode="decimal" autocomplete="off" aria-label="Stromstärke bei 500 W"></td><td class="unit">A</td></tr></table></div><details class="hinweis"><summary>Hinweis zum Rechenweg</summary><div class="inner">Rechne wie oben, aber mit der Spannung einer Zelle beim Laden. Für die Stromstärke gilt <span style="font-family:var(--mono)">I = P : U</span>, dabei ist U = Anzahl Zellen · 3,6 V.</div></details><div class="answer"><button class="check" data-check="ak3">Prüfen</button></div>
+    <div class="msg" id="msg-ak3"></div>
+  </div>
+
+  <div class="step">
+    <h3>Teil 2: Die Lichtleiste im Café</h3>
+    <p class="case">Ein Café lässt über der Theke eine Lichtleiste installieren. Die Leuchten brauchen zusammen 180 W. Der Hersteller bietet das System mit unterschiedlichen Spannungen an. Dein Betrieb möchte die Leitungen vom Netzteil zu den Leuchten selbst verlegen. Die vorgesehene Leitung darf mit höchstens 4 A belastet werden.</p>
+    <p>Berechne für jedes System die Stromstärke in der Leitung und entscheide, ob dein Betrieb die Leitungen selbst verlegen darf.</p>
+    <div class="scroll"><table class="grid"><tr><th>System</th><th>Spannung</th><th>Preis</th><th>Stromstärke</th><th>Selbst verlegen</th></tr>
+      <tr><td>A</td><td class="mono">12 V<span class="dc"></span></td><td class="mono">380 €</td><td class="sm"><input type="text" id="lt-i1" inputmode="decimal" autocomplete="off" aria-label="Stromstärke System A" style="min-width:4rem"> A</td><td class="sm"><select id="lt-e1" aria-label="Selbst verlegen System A"><option value=""></option><option>nein</option><option>ja</option></select></td></tr>
+      <tr><td>B</td><td class="mono">24 V<span class="dc"></span></td><td class="mono">420 €</td><td class="sm"><input type="text" id="lt-i2" inputmode="decimal" autocomplete="off" aria-label="Stromstärke System B" style="min-width:4rem"> A</td><td class="sm"><select id="lt-e2" aria-label="Selbst verlegen System B"><option value=""></option><option>nein</option><option>ja</option></select></td></tr>
+      <tr><td>C</td><td class="mono">48 V~</td><td class="mono">640 €</td><td class="sm"><input type="text" id="lt-i3" inputmode="decimal" autocomplete="off" aria-label="Stromstärke System C" style="min-width:4rem"> A</td><td class="sm"><select id="lt-e3" aria-label="Selbst verlegen System C"><option value=""></option><option>nein</option><option>ja</option></select></td></tr>
+      <tr><td>D</td><td class="mono">60 V~</td><td class="mono">520 €</td><td class="sm"><input type="text" id="lt-i4" inputmode="decimal" autocomplete="off" aria-label="Stromstärke System D" style="min-width:4rem"> A</td><td class="sm"><select id="lt-e4" aria-label="Selbst verlegen System D"><option value=""></option><option>nein</option><option>ja</option></select></td></tr>
+      <tr><td>E</td><td class="mono">110 V<span class="dc"></span></td><td class="mono">590 €</td><td class="sm"><input type="text" id="lt-i5" inputmode="decimal" autocomplete="off" aria-label="Stromstärke System E" style="min-width:4rem"> A</td><td class="sm"><select id="lt-e5" aria-label="Selbst verlegen System E"><option value=""></option><option>nein</option><option>ja</option></select></td></tr>
+      <tr><td>F</td><td class="mono">230 V~</td><td class="mono">450 €</td><td class="sm"><input type="text" id="lt-i6" inputmode="decimal" autocomplete="off" aria-label="Stromstärke System F" style="min-width:4rem"> A</td><td class="sm"><select id="lt-e6" aria-label="Selbst verlegen System F"><option value=""></option><option>nein</option><option>ja</option></select></td></tr>
+    </table></div>
+    <div class="answer"><button class="check" data-check="lt1">Prüfen</button></div>
+    <div class="msg" id="msg-lt1"></div>
+  </div>
+  <div class="step">
+    <p>Wähle das günstigste System, das dein Betrieb selbst installieren darf und bei dem die Leitung nicht überlastet wird.</p><div class="scroll"><table class="own"><tr><td class="lab">Gewähltes System</td><td><select id="lt-wahl" aria-label="Gewähltes System"><option value=""></option><option>System A</option><option>System B</option><option>System C</option><option>System D</option><option>System E</option><option>System F</option></select></td><td class="unit"></td></tr></table></div><div class="answer"><button class="check" data-check="lt2">Prüfen</button></div>
+    <div class="msg" id="msg-lt2"></div>
+  </div>
+</section>
+
+<section class="task" id="t6">
+  <div class="task-head">
+    <span class="num">Aufgabe 11</span>
+    <h2>Was kostet ein Prompt?</h2>
+  </div>
+  <div class="step">
+    
+    <p class="case">Google hat im August 2025 Messwerte zum Stromverbrauch seiner KI Gemini veröffentlicht:</p><p class="quelle"><a href="https://cloud.google.com/blog/products/infrastructure/measuring-the-environmental-impact-of-ai-inference/" target="_blank" rel="noopener">https://cloud.google.com/blog/products/infrastructure/measuring-the-environmental-impact-of-ai-inference/</a></p>
+  </div>
+  <div class="step">
+
+    <p>Suche heraus, wie viele Wattstunden ein typischer Text-Prompt laut Google benötigt.</p><div class="scroll"><table class="own"><tr><td class="lab">Pro Prompt</td><td><input type="text" id="a6-prompt" inputmode="decimal" autocomplete="off" aria-label="Pro Prompt"></td><td class="unit">Wh</td></tr></table></div><div class="answer"><button class="check" data-check="a6a">Prüfen</button></div>
+    <div class="msg" id="msg-a6a"></div>
+  </div>
+  <div class="step">
+
+    <p>Ein Smartphone-Akku hat 4500 mAh bei 3,85 V. Berechne, wie vielen Prompts eine volle Akkuladung entspricht.</p><div class="scroll"><table class="own"><tr><td class="lab">Prompts pro Akkuladung</td><td><input type="text" id="a6-handy" inputmode="decimal" autocomplete="off" aria-label="Prompts pro Akkuladung"></td><td class="unit"></td></tr></table></div><div class="answer"><button class="check" data-check="a6b">Prüfen</button></div>
+    <div class="msg" id="msg-a6b"></div>
+  </div>
+  <div class="step">
+
+    <p>Ein Wasserkocher braucht etwa 0,1 kWh, um einen Liter Wasser zu kochen. Berechne, wie vielen Prompts das entspricht.</p><div class="scroll"><table class="own"><tr><td class="lab">Prompts pro Liter Wasser</td><td><input type="text" id="a6-wasser" inputmode="decimal" autocomplete="off" aria-label="Prompts pro Liter Wasser"></td><td class="unit"></td></tr></table></div><div class="answer"><button class="check" data-check="a6c">Prüfen</button></div>
+    <div class="msg" id="msg-a6c"></div>
+  </div>
+  <div class="step">
+
+    <p>Deine Klasse hat 25 Schülerinnen und Schüler. Jeder schickt an 190 Schultagen 30 Prompts pro Tag ab. Berechne, wie viele Kilowattstunden das pro Schuljahr sind, und vergleiche mit einem Schul-PC, der an denselben Tagen 6 Stunden mit 60 W läuft.</p><div class="scroll"><table class="own"><tr><td class="lab">Klasse pro Schuljahr</td><td><input type="text" id="a6-klasse" inputmode="decimal" autocomplete="off" aria-label="Klasse pro Schuljahr"></td><td class="unit">kWh</td></tr><tr><td class="lab">Schul-PC pro Schuljahr</td><td><input type="text" id="a6-pc" inputmode="decimal" autocomplete="off" aria-label="Schul-PC pro Schuljahr"></td><td class="unit">kWh</td></tr></table></div><div class="answer"><button class="check" data-check="a6d">Prüfen</button></div>
+    <div class="msg" id="msg-a6d"></div>
+  </div>
+  <div class="step">
+
+    <p>Lies im Google-Artikel nach, was in dem Wert enthalten ist und was nicht. Nenne, was für eine vollständige Bilanz der KI noch fehlt.</p><div class="freitext" id="a6-fehlt" contenteditable="true" data-platzhalter="Deine Antwort"></div>
+  </div>
+  <div class="step">
+
+    <p>Die Initiative AI Energy Score misst den Stromverbrauch von KI-Modellen, die jeder herunterladen kann. Viele Modelle lassen sich mit und ohne Nachdenkmodus (Reasoning) betreiben:</p><p class="quelle"><a href="https://huggingface.co/blog/sasha/ai-energy-score-v2" target="_blank" rel="noopener">https://huggingface.co/blog/sasha/ai-energy-score-v2</a></p><p>Wähle ein Modell aus der Tabelle im Artikel, rechne die Werte auf eine einzelne Anfrage um und berechne, um welchen Faktor der Nachdenkmodus mehr braucht.</p><div class="scroll"><table class="own"><tr><td class="lab">Modell</td><td><select id="a6-modell" aria-label="Modell"><option value=""></option><option value="SmolLM3-3B">SmolLM3-3B</option><option value="DeepSeek-R1-Distill-Llama-70B">DeepSeek-R1-Distill-Llama-70B</option><option value="Phi-4-reasoning-plus">Phi-4-reasoning-plus</option></select></td><td class="unit"></td></tr><tr><td class="lab">ohne Reasoning pro Anfrage</td><td><input type="text" id="a6-ohne" inputmode="decimal" autocomplete="off" aria-label="ohne Reasoning pro Anfrage"></td><td class="unit">Wh</td></tr><tr><td class="lab">mit Reasoning pro Anfrage</td><td><input type="text" id="a6-mit" inputmode="decimal" autocomplete="off" aria-label="mit Reasoning pro Anfrage"></td><td class="unit">Wh</td></tr><tr><td class="lab">Faktor</td><td><input type="text" id="a6-faktor" inputmode="decimal" autocomplete="off" aria-label="Faktor"></td><td class="unit"></td></tr></table></div><div class="answer"><button class="check" data-check="a6f">Prüfen</button></div>
+    <div class="msg" id="msg-a6f"></div>
+  </div>
+  <div class="step">
+
+    <p>Erkläre, warum man die Werte von Google und von AI Energy Score nicht direkt miteinander vergleichen kann.</p><div class="freitext" id="a6-vergleich" contenteditable="true" data-platzhalter="Deine Antwort"></div>
+  </div>
+  <div class="step">
+
+    <p>Bewerte, wie glaubwürdig die Zahl von Google ist. Achte darauf, wer gemessen hat.</p><div class="freitext" id="a6-glaub" contenteditable="true" data-platzhalter="Deine Antwort"></div>
+  </div>
+
+</section>
+
+<section class="task" id="t-bonus">
+  <div class="task-head">
+    <span class="num">Bonusaufgaben</span>
+    <h2>Für Profis: Rechnen mit U, R, I und P</h2>
+  </div>
+
+  <div class="step">
+    <h3>Bonus 1: Der Wasserkocher aus den USA</h3>
+    <p class="case">Eine Kollegin bringt aus den USA einen Wasserkocher mit. Auf dem Typenschild steht 120 V~ 1500 W. Sie steckt ihn hier in eine Steckdose mit 230 V, die mit 16 A abgesichert ist. Der Heizdraht behält dabei seinen Widerstand.</p>
+    <p>Berechne den Widerstand des Heizdrahts sowie Stromstärke und Leistung an der deutschen Steckdose. Entscheide, was mit der Sicherung passiert.</p><div class="scroll"><table class="own"><tr><td class="lab">Widerstand des Heizdrahts</td><td><input type="text" id="b1-r" inputmode="decimal" autocomplete="off" aria-label="Widerstand des Heizdrahts"></td><td class="unit">Ω</td></tr><tr><td class="lab">Stromstärke an 230 V</td><td><input type="text" id="b1-i" inputmode="decimal" autocomplete="off" aria-label="Stromstärke an 230 V"></td><td class="unit">A</td></tr><tr><td class="lab">Leistung an 230 V</td><td><input type="text" id="b1-p" inputmode="decimal" autocomplete="off" aria-label="Leistung an 230 V"></td><td class="unit">W</td></tr><tr><td class="lab">Die Sicherung</td><td><select id="b1-s" aria-label="Die Sicherung"><option value=""></option><option>hält</option><option>löst aus</option></select></td><td class="unit"></td></tr></table></div><details class="hinweis"><summary>Hinweis zum Rechenweg</summary><div class="inner">Bestimme zuerst mit den Werten vom Typenschild den Widerstand. Mit diesem Widerstand rechnest du an 230 V weiter.</div></details><div class="answer"><button class="check" data-check="b1">Prüfen</button></div>
+    <div class="msg" id="msg-b1"></div>
+  </div>
+
+  <div class="step">
+    <h3>Bonus 2: Warum Schnellladen mit hoher Spannung arbeitet</h3>
+    <p class="case">Ein Smartphone lädt über ein USB-Kabel mit 5 V und 3 A. Die beiden Adern des Kabels haben zusammen einen Widerstand von 0,3 Ω.</p>
+    <p>Berechne, wie viel Spannung am Kabel verloren geht, wie viel Spannung beim Smartphone ankommt und welche Leistung im Kabel in Wärme umgewandelt wird.</p><div class="scroll"><table class="own"><tr><td class="lab">Spannungsverlust am Kabel</td><td><input type="text" id="b2-du" inputmode="decimal" autocomplete="off" aria-label="Spannungsverlust am Kabel"></td><td class="unit">V</td></tr><tr><td class="lab">Spannung beim Smartphone</td><td><input type="text" id="b2-uh" inputmode="decimal" autocomplete="off" aria-label="Spannung beim Smartphone"></td><td class="unit">V</td></tr><tr><td class="lab">Verlustleistung im Kabel</td><td><input type="text" id="b2-pv" inputmode="decimal" autocomplete="off" aria-label="Verlustleistung im Kabel"></td><td class="unit">W</td></tr></table></div><div class="answer"><button class="check" data-check="b2a">Prüfen</button></div>
+    <div class="msg" id="msg-b2a"></div>
+  </div>
+  <div class="step">
+    <p>Mit USB Power Delivery überträgt das Netzteil dieselbe Leistung (5 V · 3 A) mit 20 V. Berechne die Stromstärke, die Verlustleistung im selben Kabel und um welchen Faktor die Verluste kleiner sind.</p><div class="scroll"><table class="own"><tr><td class="lab">Stromstärke bei 20 V</td><td><input type="text" id="b2-i20" inputmode="decimal" autocomplete="off" aria-label="Stromstärke bei 20 V"></td><td class="unit">A</td></tr><tr><td class="lab">Verlustleistung im Kabel</td><td><input type="text" id="b2-pv20" inputmode="decimal" autocomplete="off" aria-label="Verlustleistung im Kabel"></td><td class="unit">W</td></tr><tr><td class="lab">Verluste kleiner um den Faktor</td><td><input type="text" id="b2-f" inputmode="decimal" autocomplete="off" aria-label="Verluste kleiner um den Faktor"></td><td class="unit"></td></tr></table></div><div class="answer"><button class="check" data-check="b2b">Prüfen</button></div>
+    <div class="msg" id="msg-b2b"></div>
+  </div>
+
+  <div class="step">
+    <h3>Bonus 3: Vorwiderstand für eine LED</h3>
+    <p class="case">An einem USB-Anschluss mit 5 V soll eine Status-LED leuchten. Die LED braucht 2 V und 20 mA. Den Rest der Spannung übernimmt ein Vorwiderstand, durch den derselbe Strom fließt wie durch die LED.</p>
+    <p>Berechne den Vorwiderstand und die Leistung, die in ihm in Wärme umgewandelt wird.</p><div class="scroll"><table class="own"><tr><td class="lab">Vorwiderstand</td><td><input type="text" id="b3-r" inputmode="decimal" autocomplete="off" aria-label="Vorwiderstand"></td><td class="unit">Ω</td></tr><tr><td class="lab">Leistung im Vorwiderstand</td><td><input type="text" id="b3-p" inputmode="decimal" autocomplete="off" aria-label="Leistung im Vorwiderstand"></td><td class="unit">W</td></tr></table></div><div class="answer"><button class="check" data-check="b3a">Prüfen</button></div>
+    <div class="msg" id="msg-b3a"></div>
+  </div>
+  <div class="step">
+    <p>Ein Kollege greift versehentlich zu einem Widerstand mit 15 Ω. Berechne, welcher Strom jetzt fließen würde, wenn an der LED weiterhin 2 V anliegen.</p><div class="scroll"><table class="own"><tr><td class="lab">Stromstärke mit 15 Ω</td><td><input type="text" id="b3-i" inputmode="decimal" autocomplete="off" aria-label="Stromstärke mit 15 Ω"></td><td class="unit">mA</td></tr></table></div><div class="answer"><button class="check" data-check="b3b">Prüfen</button></div>
+    <div class="msg" id="msg-b3b"></div>
+  </div>
+
+  <div class="step">
+    <h3>Bonus 4: Zwei Lampen in Reihe</h3>
+    <p class="case">Zwei Glühlampen, eine mit 230 V / 60 W und eine mit 230 V / 100 W, werden hintereinander (in Reihe) an 230 V angeschlossen. In Reihe addieren sich die Widerstände und durch beide Lampen fließt derselbe Strom. Vereinfacht bleiben die Widerstände der Lampen gleich.</p>
+    <p>Berechne die Widerstände beider Lampen, den Strom und die Leistung jeder Lampe in der Reihenschaltung. Entscheide dann, welche Lampe heller leuchtet.</p><div class="scroll"><table class="own"><tr><td class="lab">Widerstand der 60-W-Lampe</td><td><input type="text" id="b4-r60" inputmode="decimal" autocomplete="off" aria-label="Widerstand der 60-W-Lampe"></td><td class="unit">Ω</td></tr><tr><td class="lab">Widerstand der 100-W-Lampe</td><td><input type="text" id="b4-r100" inputmode="decimal" autocomplete="off" aria-label="Widerstand der 100-W-Lampe"></td><td class="unit">Ω</td></tr><tr><td class="lab">Strom in der Reihenschaltung</td><td><input type="text" id="b4-i" inputmode="decimal" autocomplete="off" aria-label="Strom in der Reihenschaltung"></td><td class="unit">mA</td></tr><tr><td class="lab">Leistung der 60-W-Lampe</td><td><input type="text" id="b4-p60" inputmode="decimal" autocomplete="off" aria-label="Leistung der 60-W-Lampe"></td><td class="unit">W</td></tr><tr><td class="lab">Leistung der 100-W-Lampe</td><td><input type="text" id="b4-p100" inputmode="decimal" autocomplete="off" aria-label="Leistung der 100-W-Lampe"></td><td class="unit">W</td></tr><tr><td class="lab">Heller leuchtet</td><td><select id="b4-h" aria-label="Heller leuchtet"><option value=""></option><option>die 100-W-Lampe</option><option>beide gleich</option><option>die 60-W-Lampe</option></select></td><td class="unit"></td></tr></table></div><div class="answer"><button class="check" data-check="b4">Prüfen</button></div>
+    <div class="msg" id="msg-b4"></div>
+  </div>
+</section>
+
+</div>
+<script>
+(function(){
+  function $(id){ return document.getElementById(id); }
+  function say(k, text, kind){ var el = $("msg-" + k); el.textContent = text; el.className = "msg" + (kind ? " " + kind : ""); }
+  function mark(el, ok){ el.classList.remove("ok", "bad"); el.classList.add(ok ? "ok" : "bad"); }
+  function num(el){
+    var s = (el.value || "").replace(/\s+/g, "").replace(/[^0-9,.\-]/g, "");
+    if (s === "") return null;
+    if (s.indexOf(",") >= 0) s = s.replace(/\./g, "").replace(",", ".");
+    var n = Number(s);
+    return isNaN(n) ? NaN : n;
+  }
+  function near(v, exp, tol){ return Math.abs(v - exp) <= tol; }
+
+  /* Zahlenfeld: [id, Sollwert, Toleranz, Bezeichnung, Hinweise [[Wert, Toleranz, Text]]]
+     Auswahlfeld: [id, "=richtige Option", 0, Bezeichnung] */
+  var CHECKS = {
+    a1a: [["a1-komp", 281.6, 0.5, "Die Leistung bei den Komponenten", [[363.6, 0.6, "Du hast durch den Wirkungsgrad geteilt. Die 320 W misst das Gerät an der Steckdose, bei den Komponenten kommt weniger an."]]]],
+    a1b: [["a1-verlust", 38.4, 0.5, "Der Leistungsverlust"]],
+    a2a: [["a2-eta", 76.1, 0.4, "Der Wirkungsgrad der Kette", [[0.761, 0.004, "Gib den Wirkungsgrad in Prozent an."], [91.3, 0.4, "Du hast den Durchschnitt gebildet. Sieh dir den Hinweis zum Rechenweg an."], [274, 1, "Du hast die Wirkungsgrade addiert. Sieh dir den Hinweis zum Rechenweg an."]]]],
+    a2b: [["a2-auf", 197.1, 0.6, "Die Aufnahme aus der Steckdose", [[114.2, 0.6, "Du hast mit dem Wirkungsgrad multipliziert. Die Steckdose muss aber mehr liefern, als beim Prozessor ankommt."]]]],
+    a2c: [["a2-usv", 191.0, 0.25, "Die Aufnahme mit besserer USV"], ["a2-sw", 190.6, 0.25, "Die Aufnahme mit besserem Spannungswandler"], ["a2-wahl", "=der bessere Spannungswandler", 0, "Die Entscheidung"]],
+    a3: [["a3-a", 205.7, 0.8, "Der Jahresverbrauch mit Netzteil A", [[169.4, 0.8, "Das ist nur der Bedarf der Komponenten. Gefragt ist, was der PC aus der Steckdose aufnimmt."]]],
+         ["a3-b", 201.9, 0.8, "Der Jahresverbrauch mit Netzteil B", [[169.4, 0.8, "Das ist nur der Bedarf der Komponenten. Gefragt ist, was der PC aus der Steckdose aufnimmt."]]],
+         ["a3-wahl", "=Netzteil B", 0, "Die Entscheidung"]],
+    a4a: [["a4-sum", 2580, 1, "Die Leistung aller Geräte"]],
+    a4b: [["a4-geht", "=können nicht gleichzeitig laufen", 0, "Die Entscheidung"]],
+    a4c: [["a4-geraet", "=Kaffeemaschine", 0, "Die Wahl des Geräts"]],
+    a5a: [["a5-akku", 216, 1, "Der Wert für die Akkus", [[108, 1, "Im Angebot stehen mehrere Akkus."]]]],
+    a5b: [["a5-nutz", 183.6, 0.6, "Der Wert bei den Geräten", [[254.1, 0.6, "Durch den Wirkungsgrad kommt bei den Geräten weniger an, als in den Akkus gespeichert ist."]]]],
+    a5c: [["a5-min", 24.5, 0.6, "Die Überbrückungszeit", [[28.8, 0.4, "Rechne mit dem, was bei den Geräten ankommt."], [0.408, 0.01, "Das Ergebnis ist in Stunden. Gefragt sind Minuten."]]]],
+    a5d: [["a5-bedarf", 225, 1, "Der Wert für 30 Minuten", [[13500, 5, "Rechne die Zeit in Stunden um."]]]],
+    a5e: [["a5-minakku", 264.7, 1, "Der Mindestwert für die Akkus", [[191.3, 0.6, "Die Akkus müssen mehr speichern, als bei den Geräten ankommen soll."]]]],
+    a6a: [["a6-prompt", 0.24, 0.001, "Der Wert pro Prompt"]],
+    a6b: [["a6-handy", 72.2, 1.2, "Die Anzahl der Prompts pro Akkuladung", [[18750, 5, "Rechne die Angabe des Akkus zuerst in Wh um."]]]],
+    a6c: [["a6-wasser", 416.7, 1.5, "Die Anzahl der Prompts pro Liter Wasser", [[0.4167, 0.01, "Achte auf die Einheiten: 0,1 kWh sind 100 Wh."]]]],
+    a6d: [["a6-klasse", 34.2, 0.1, "Der Bedarf der Klasse", [[34200, 1, "Das Ergebnis ist in Wh. Gefragt sind kWh."]]],
+          ["a6-pc", 68.4, 0.1, "Der Bedarf des Schul-PCs", [[68400, 1, "Das Ergebnis ist in Wh. Gefragt sind kWh."]]]],
+    nt1: [["nt-sum", 473, 0.5, "die Gesamtleistung", [[455, 0.5, "Es sind mehrere Speicherriegel und Lüfter verbaut."], [449, 0.5, "Es sind mehrere Speicherriegel und Lüfter verbaut."]]],
+          ["nt-min", 614.9, 1, "die Mindestleistung des Netzteils", [[141.9, 0.6, "Das ist nur die Reserve. Das Netzteil muss die Gesamtleistung und die Reserve liefern."], [675.7, 1, "Du hast durch 0,7 geteilt. Rechne die 30 % auf die Gesamtleistung auf."]]]],
+    nt2: [["nt-z1", "=Gold", 0, "das Zertifikat von Netzteil A"],
+          ["nt-z2", "=Silver", 0, "das Zertifikat von Netzteil B", {"Gold": "Sieh dir bei Netzteil B jede Auslastung einzeln an."}],
+          ["nt-z3", "=Gold", 0, "das Zertifikat von Netzteil C", {"Silver": "Netzteil C erreicht die Werte für Gold genau. Genau erreicht reicht."}],
+          ["nt-z4", "=Platinum", 0, "das Zertifikat von Netzteil D"],
+          ["nt-z5", "=Bronze", 0, "das Zertifikat von Netzteil E"],
+          ["nt-wahl", "=Netzteil C", 0, "die Wahl des Netzteils", {"Netzteil A": "Netzteil A ist zu schwach, wenn du die Reserve einrechnest.", "Netzteil B": "Netzteil B schafft die Werte für Gold nicht.", "Netzteil D": "Netzteil D erfüllt die Wünsche, es gibt aber ein günstigeres."}]],
+    nb1: [["nb-p", 134.9, 0.6, "die Leistung des alten Netzteils", [[414, 1, "Du hast mit den Werten der Eingangsseite gerechnet."], [432, 1, "Du hast mit den Werten der Eingangsseite gerechnet."], [180, 1, "Du hast mit den Werten der Eingangsseite gerechnet."]]]],
+    nb2: [["nb-a", "=Stecker passt nicht", 0, "Netzteil A"],
+          ["nb-b", "=Leistung zu gering", 0, "Netzteil B"],
+          ["nb-c", "=passt", 0, "Netzteil C", {"Stromstärke zu hoch": "Das Notebook nimmt sich nur so viel Strom, wie es braucht. Eine höhere Stromstärke auf dem Typenschild ist kein Problem."}],
+          ["nb-d", "=Spannung passt nicht", 0, "Netzteil D"],
+          ["nb-e", "=Stecker passt nicht|Spannung passt nicht", 0, "Netzteil E"]],
+    usb1: [["usb-ma", 2930, 1, "die Stromaufnahme aller Geräte", [[3030, 1, "Gefragt sind nur die Geräte, ohne Hub."]]],
+           ["usb-w", 14.65, 0.06, "die Leistung aller Geräte", [[14650, 5, "Rechne die Stromstärke zuerst in Ampere um."]]]],
+    sb1: [["sb-betrieb", 779.52, 1, "die Kosten im Betrieb"],
+          ["sb-standby", 127.18, 0.6, "die Kosten im Standby", [[58.75, 0.6, "Das Jahr hat mehr Tage als die Arbeitstage."], [10.6, 0.3, "Es sind mehrere Arbeitsplätze."]]]],
+    sb2: [["sb-jahre", 1.42, 0.05, "die Zahl der Jahre", [[0.12, 0.01, "Jeder Arbeitsplatz bekommt eine eigene Steckdosenleiste."]]]],
+    a5f: [["a5-angebot", "=USV D", 0, "die Wahl der USV", {"USV A": "Rechne aus, was bei USV A tatsächlich bei den Geräten ankommt.", "USV C": "Prüfe, ob USV C die Leistung der Geräte liefern kann.", "USV E": "USV E erfüllt die Anforderungen, es gibt aber eine günstigere."}]],
+    b1: [["b1-r", 9.6, 0.05, "der Widerstand", [[35.27, 0.1, "Rechne den Widerstand mit den Werten vom Typenschild aus, also mit 120 V."]]],
+         ["b1-i", 23.96, 0.1, "die Stromstärke", [[12.5, 0.05, "Das ist die Stromstärke in den USA. Rechne mit dem Widerstand an 230 V."], [6.52, 0.05, "Du hast angenommen, dass die Leistung gleich bleibt. Gleich bleibt aber der Widerstand."]]],
+         ["b1-p", 5510, 15, "die Leistung", [[1500, 1, "Nicht die Leistung bleibt gleich, sondern der Widerstand."], [2875, 2, "Die Stromstärke ändert sich mit der Spannung."]]],
+         ["b1-s", "=löst aus", 0, "die Entscheidung zur Sicherung", {"hält": "Vergleiche die Stromstärke mit der Absicherung."}]],
+    b2a: [["b2-du", 0.9, 0.01, "der Spannungsverlust"], ["b2-uh", 4.1, 0.01, "die Spannung beim Smartphone"], ["b2-pv", 2.7, 0.02, "die Verlustleistung", [[0.9, 0.01, "Die Verlustleistung ist Spannungsverlust mal Stromstärke."], [0.27, 0.005, "Die Verlustleistung ist Spannungsverlust mal Stromstärke."]]]],
+    b2b: [["b2-i20", 0.75, 0.005, "die Stromstärke bei 20 V"], ["b2-pv20", 0.169, 0.003, "die Verlustleistung bei 20 V", [[0.225, 0.003, "Rechne zuerst den Spannungsverlust am Kabel mit der neuen Stromstärke aus."], [0.675, 0.005, "Rechne zuerst den Spannungsverlust am Kabel mit der neuen Stromstärke aus."]]], ["b2-f", 16, 0.15, "der Faktor", [[4, 0.05, "Die Stromstärke ist viermal kleiner. Sie geht aber zweimal in die Verlustleistung ein."]]]],
+    b3a: [["b3-r", 150, 0.5, "der Vorwiderstand", [[250, 0.5, "Am Vorwiderstand liegt nicht die ganze Spannung an."], [0.15, 0.001, "20 mA sind 0,02 A."], [100, 0.5, "Am Vorwiderstand liegt nur der Rest der Spannung an, nicht die Spannung der LED."]]], ["b3-p", 0.06, 0.001, "die Leistung", [[60, 0.5, "Gib die Leistung in Watt an."]]]],
+    b3b: [["b3-i", 200, 0.5, "die Stromstärke", [[0.2, 0.001, "Gib die Stromstärke in Milliampere an."], [333.3, 0.5, "Am Widerstand liegen weiterhin nur 3 V an."]]]],
+    b4: [["b4-r60", 881.7, 1, "der Widerstand der 60-W-Lampe"], ["b4-r100", 529, 1, "der Widerstand der 100-W-Lampe"], ["b4-i", 163, 0.5, "der Strom", [[0.163, 0.001, "Gib die Stromstärke in Milliampere an."]]],
+         ["b4-p60", 23.4, 0.15, "die Leistung der 60-W-Lampe"], ["b4-p100", 14.1, 0.15, "die Leistung der 100-W-Lampe"], ["b4-h", "=die 60-W-Lampe", 0, "die Entscheidung", {"die 100-W-Lampe": "Vergleiche die Leistungen in der Reihenschaltung, nicht die Angaben auf den Lampen."}]],
+    ak1: [["ak-n", 33, 0, "die Anzahl der Zellen", [[33.33, 0.05, "Es zählen nur ganze Zellen."], [34, 0, "Mit 34 Zellen wären es 122,4 V."]]], ["ak-u", 118.8, 0.1, "die Spannung des Akkupacks"]],
+    ak2: [["ak-ul", 138.6, 0.1, "die Spannung beim Laden", [[118.8, 0.1, "Rechne mit der Spannung der Zellen beim Laden."]]], ["ak-d", "=nicht erlaubt", 0, "die Entscheidung", {"erlaubt": "Vergleiche die Spannung beim Laden mit der Grenze für Gleichspannung."}]],
+    ak3: [["ak-n2", 28, 0, "die Anzahl der Zellen", [[28.57, 0.05, "Es zählen nur ganze Zellen."], [29, 0, "Mit 29 Zellen wären es beim Laden 121,8 V."], [33, 0, "Rechne mit der Spannung beim Laden, nicht mit der Nennspannung."]]], ["ak-i", 4.96, 0.03, "die Stromstärke", [[4.25, 0.03, "Gefragt ist die Stromstärke bei Nennspannung, also mit 3,6 V je Zelle."], [4.21, 0.03, "Rechne mit dem Akkupack aus 28 Zellen."]]]],
+    lt1: [["lt-i1", 15, 0.15, "die Stromstärke bei System A"],
+          ["lt-e1", "=ja", 0, "die Entscheidung bei System A"],
+          ["lt-i2", 7.5, 0.075, "die Stromstärke bei System B"],
+          ["lt-e2", "=ja", 0, "die Entscheidung bei System B"],
+          ["lt-i3", 3.75, 0.037, "die Stromstärke bei System C"],
+          ["lt-e3", "=ja", 0, "die Entscheidung bei System C", {"nein": "System C: Für Wechselspannung liegt die Grenze bei 50 V."}],
+          ["lt-i4", 3, 0.03, "die Stromstärke bei System D"],
+          ["lt-e4", "=nein", 0, "die Entscheidung bei System D", {"ja": "System D: Vergleiche mit der Grenze für Wechselspannung."}],
+          ["lt-i5", 1.64, 0.016, "die Stromstärke bei System E"],
+          ["lt-e5", "=ja", 0, "die Entscheidung bei System E", {"nein": "System E: Für Gleichspannung gilt eine höhere Grenze als für Wechselspannung."}],
+          ["lt-i6", 0.78, 0.01, "die Stromstärke bei System F"],
+          ["lt-e6", "=nein", 0, "die Entscheidung bei System F"]],
+    lt2: [["lt-wahl", "=System E", 0, "die Wahl", {"System C": "System C erfüllt alle Anforderungen, es gibt aber ein günstigeres.", "System D": "Prüfe, ob dein Betrieb System D selbst installieren darf.", "System F": "Prüfe, ob dein Betrieb System F selbst installieren darf.", "System A": "Prüfe die Stromstärke in der Leitung.", "System B": "Prüfe die Stromstärke in der Leitung."}]]
+  };
+  /* Werte aus dem Artikel AI Energy Score v2, GPU-Energie in Wh pro Anfrage */
+  var MODELLE = {
+    "SmolLM3-3B": [0.01835, 12.79122],
+    "DeepSeek-R1-Distill-Llama-70B": [0.04953, 7.62653],
+    "Phi-4-reasoning-plus": [0.01842, 9.46161]
+  };
+
+  /* Prüft immer alle Felder einer Aufgabe und sammelt die Meldungen */
+  function melde(k, falsch, tipps, fehlt){
+    if (!falsch.length && !fehlt.length){ say(k, "Alles richtig.", "ok"); return; }
+    var z = [];
+    if (falsch.length) z.push("Stimmt noch nicht: " + falsch.join(", "));
+    tipps.forEach(function(t){ z.push(t); });
+    if (fehlt.length) z.push("Fehlt noch: " + fehlt.join(", "));
+    say(k, z.join("\n"), "hint");
+  }
+  function run(k, list){
+    var falsch = [], tipps = [], fehlt = [];
+    list.forEach(function(f){
+      var el = $(f[0]);
+      el.classList.remove("ok", "bad");
+      if (typeof f[1] === "string"){
+        if (el.value === ""){ fehlt.push(f[3]); return; }
+        var okS = f[1].slice(1).split("|").indexOf(el.value) >= 0;
+        mark(el, okS);
+        if (!okS){ falsch.push(f[3]); if (f[4] && f[4][el.value]) tipps.push(f[4][el.value]); }
+        return;
+      }
+      var v = num(el);
+      if (v === null){ fehlt.push(f[3]); return; }
+      if (isNaN(v) || !near(v, f[1], f[2])){
+        mark(el, false);
+        falsch.push(f[3]);
+        var hs = f[4] || [];
+        for (var h = 0; h < hs.length; h++){ if (near(v, hs[h][0], hs[h][1])){ tipps.push(hs[h][2]); break; } }
+        return;
+      }
+      mark(el, true);
+    });
+    melde(k, falsch, tipps, fehlt);
+  }
+
+  /* USB-Verteilung: jeder Anschluss darf nicht überlastet sein, nur ein Hub vorhanden */
+  var USB_GER = [["usb-display", 1350], ["usb-terminal", 480], ["usb-scanner", 420], ["usb-lade", 300], ["usb-tast", 100], ["usb-pad", 280]];
+  var USB_PORT = {p1: 500, p2: 500, p3: 900, p4: 1500};
+  var USB_NAME = {p1: "Port 1", p2: "Port 2", p3: "Port 3", p4: "Port 4"};
+  function runUSB(){
+    var k = "usb2", fehlt = [], falsch = [], tipps = [], last = {}, anz = {};
+    USB_GER.forEach(function(g){
+      var el = $(g[0]); el.classList.remove("ok", "bad");
+      if (el.value === ""){ fehlt.push(el.getAttribute("aria-label")); return; }
+      last[el.value] = (last[el.value] || 0) + g[1];
+      anz[el.value] = (anz[el.value] || 0) + 1;
+    });
+    if (fehlt.length){ melde(k, [], [], fehlt); return; }
+    var ueber = {}, hubs = 0;
+    Object.keys(last).forEach(function(p){
+      if (anz[p] > 1){ hubs++; last[p] += 100; }
+      if (last[p] > USB_PORT[p]){ ueber[p] = true; falsch.push(USB_NAME[p] + " ist mit " + last[p] + " mA überlastet"); }
+    });
+    if (hubs > 1){ falsch.push("Verteilung"); tipps.push("Es steht nur ein Hub zur Verfügung. Mehrere Geräte dürfen deshalb nur an einem Anschluss hängen."); }
+    USB_GER.forEach(function(g){ var el = $(g[0]); mark(el, !ueber[el.value] && hubs <= 1); });
+    if (Object.keys(ueber).length) tipps.push("Denk daran, dass der Hub selbst auch Strom braucht.");
+    melde(k, falsch, tipps, []);
+  }
+
+  function runModell(){
+    var k = "a6f", m = $("a6-modell");
+    m.classList.remove("ok", "bad");
+    if (m.value === ""){ say(k, "Wähle zuerst ein Modell.", "hint"); return; }
+    mark(m, true);
+    var w = MODELLE[m.value];
+    run(k, [["a6-ohne", w[0], w[0] * 0.05, "Der Wert ohne Reasoning", [[w[0] * 1000, w[0] * 50, "Die Tabelle gilt für 1000 Anfragen. Rechne auf eine Anfrage um."]]],
+            ["a6-mit", w[1], w[1] * 0.02, "Der Wert mit Reasoning", [[w[1] * 1000, w[1] * 20, "Die Tabelle gilt für 1000 Anfragen. Rechne auf eine Anfrage um."]]],
+            ["a6-faktor", w[1] / w[0], w[1] / w[0] * 0.03, "Der Faktor"]]);
+  }
+
+  var btns = document.querySelectorAll("button.check");
+  for (var b = 0; b < btns.length; b++){
+    (function(btn){
+      btn.addEventListener("click", function(){
+        var k = btn.getAttribute("data-check");
+        if (k === "a6f") runModell(); else if (k === "usb2") runUSB(); else run(k, CHECKS[k]);
+      });
+    })(btns[b]);
+  }
+})();
+
+</script>
+<!-- vt-speicher -->
+<style>
+.vt-tools{max-width:980px;margin:8px auto 40px;padding:0 22px;display:flex;gap:12px;flex-wrap:wrap}
+.vt-tools button{font:inherit;font-size:.95em;padding:8px 18px;border:1.5px solid currentColor;background:transparent;color:inherit;cursor:pointer}
+.vt-tools button:hover{background:rgba(128,128,128,.16)}
+@media print{.vt-tools{display:none}}
+</style>
+<div class="vt-tools"><button type="button" id="vt-print" onclick="window.print()">PDF speichern</button><button type="button" id="vt-wipe">Alle Eingaben löschen</button></div>
+<script>
+(function(){
+  var PREFIX = 'bsfi-uebung-elektrotechnik:';
+  var EXCLUDE = '';
+  var TOGGLES = '';
+  var WIPE_ID = '';
+  var store = null;
+  try { store = window.localStorage; store.setItem(PREFIX + '__t', '1'); store.removeItem(PREFIX + '__t'); }
+  catch (e) { store = null; }
+  if (!store) { return; }
+
+  /* Felder bei jedem Zugriff frisch einsammeln, weil Blaetter Teile neu aufbauen koennen */
+  function collect(){
+    var out = [];
+    var idx = 0;
+    Array.prototype.forEach.call(document.querySelectorAll('input, textarea, select, [contenteditable="true"]'), function(el){
+      var t = (el.type || '').toLowerCase();
+      if (el.tagName === 'INPUT' && /^(button|submit|reset|password|file|hidden|image)$/.test(t)) { return; }
+      if (EXCLUDE && el.matches(EXCLUDE)) { return; }
+      if (el.closest('.vt-tools')) { return; }
+      var key = el.id ? 'id:' + el.id : 'n' + idx;
+      idx++;
+      out.push({ el: el, key: PREFIX + key, kind: (t === 'checkbox' || t === 'radio') ? 'check' : (el.isContentEditable ? 'rich' : 'value') });
+    });
+    return out;
+  }
+  function collectToggles(){
+    return TOGGLES ? Array.prototype.map.call(document.querySelectorAll(TOGGLES), function(el, i){
+      return { el: el, key: PREFIX + 'tg' + i };
+    }) : [];
+  }
+
+  function read(f){
+    if (f.kind === 'check') { return f.el.checked ? '1' : ''; }
+    if (f.kind === 'rich') { return f.el.textContent; }
+    return f.el.value;
+  }
+  function fire(el, type){
+    el.dispatchEvent(new Event(type, { bubbles: true }));
+  }
+
+  collect().forEach(function(f){
+    var saved = null;
+    try { saved = store.getItem(f.key); } catch (e) {}
+    if (saved === null) { return; }
+    if (f.kind === 'check') { f.el.checked = (saved === '1'); fire(f.el, 'change'); }
+    else if (f.kind === 'rich') { f.el.textContent = saved; fire(f.el, 'input'); }
+    else {
+      f.el.value = saved;
+      fire(f.el, f.el.tagName === 'SELECT' ? 'change' : 'input');
+    }
+  });
+  collectToggles().forEach(function(t){
+    var saved = null;
+    try { saved = store.getItem(t.key); } catch (e) {}
+    if (saved !== null && t.el.getAttribute('aria-pressed') !== saved) { t.el.click(); }
+  });
+
+  var wiping = false;
+  var timer = null;
+  function save(){
+    if (wiping) { return; }
+    collect().forEach(function(f){
+      var val = read(f);
+      try {
+        if (val && String(val).trim()) { store.setItem(f.key, val); } else { store.removeItem(f.key); }
+      } catch (e) {}
+    });
+    collectToggles().forEach(function(t){
+      try {
+        if (t.el.getAttribute('aria-pressed') === 'true') { store.setItem(t.key, 'true'); } else { store.removeItem(t.key); }
+      } catch (e) {}
+    });
+  }
+  function queue(){
+    if (timer) { clearTimeout(timer); }
+    timer = setTimeout(save, 400);
+  }
+  document.addEventListener('input', queue, true);
+  document.addEventListener('change', queue, true);
+  if (TOGGLES) { document.addEventListener('click', queue, true); }
+  window.addEventListener('pagehide', save);
+  document.addEventListener('visibilitychange', function(){ if (document.visibilityState === 'hidden') { save(); } });
+
+  function dropAll(){
+    for (var i = store.length - 1; i >= 0; i--) {
+      var k = store.key(i);
+      if (k && k.indexOf(PREFIX) === 0) { try { store.removeItem(k); } catch (e) {} }
+    }
+  }
+
+  if (WIPE_ID) {
+    /* vorhandener Zuruecksetzen-Button: nach seinem Handler den Speicher angleichen */
+    var own = document.getElementById(WIPE_ID);
+    if (own) { own.addEventListener('click', function(){ if (timer) { clearTimeout(timer); } save(); }); }
+    return;
+  }
+  Array.prototype.forEach.call(document.querySelectorAll('#vt-wipe, .vt-wipe-btn'), function(wipe){
+    wipe.addEventListener('click', function(){
+      if (!window.confirm('Wirklich alle Eingaben auf diesem Blatt löschen?')) { return; }
+      wiping = true;
+      if (timer) { clearTimeout(timer); }
+      dropAll();
+      /* Felder leeren, sonst stellt Firefox sie beim Neuladen wieder her */
+      collect().forEach(function(f){
+        try {
+          if (f.kind === 'check') { f.el.checked = false; }
+          else if (f.kind === 'rich') { f.el.textContent = ''; }
+          else if (f.el.tagName === 'SELECT') { f.el.selectedIndex = 0; }
+          else { f.el.value = ''; }
+        } catch (e) {}
+      });
+      window.location.reload();
+    });
+  });
+})();
+</script>
+</body>
+</html>
